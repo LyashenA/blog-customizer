@@ -5,10 +5,25 @@ import plane from 'src/images/plane.png';
 import { Text } from 'src/ui/text';
 
 import styles from './Article.module.scss';
+import { Options } from '../article-params-form/ArticleParamsForm';
 
-export const Article = () => {
+type ArticleProps = {
+	theme?: Options;
+};
+
+export const Article: React.FC<ArticleProps> = ({ theme }) => {
+	const cssVars = theme
+		? ({
+				'--font-family': theme.fontFamily,
+				'--font-size': theme.fontSize,
+				'--font-color': theme.fontColor,
+				'--container-width': theme.containerWidth,
+				'--bg-color': theme.backgroundColor,
+		  } as React.CSSProperties)
+		: undefined;
+
 	return (
-		<article className={clsx(styles.article)}>
+		<article className={clsx(styles.article)} style={cssVars}>
 			<Text as='h1' size={45} weight={800} uppercase dynamicLite>
 				Портрет Западной Швейцарии
 			</Text>
