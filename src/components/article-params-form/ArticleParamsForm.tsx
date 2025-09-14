@@ -36,10 +36,10 @@ export const ArticleParamsForm = ({
 	onApply,
 	onReset,
 }: ArticleParamsFormProps) => {
-	const [isOpen, setIsOpen] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const asideRef = useRef<HTMLElement | null>(null);
 	const handleButtonOpen = () => {
-		setIsOpen(!isOpen);
+		setIsMenuOpen(!isMenuOpen);
 		asideRef.current?.classList.toggle(styles.container_open);
 	};
 
@@ -53,14 +53,14 @@ export const ArticleParamsForm = ({
 	};
 
 	useEffect(() => {
-		if (!isOpen) return;
+		if (!isMenuOpen) return;
 
 		const handleClickOutside = (event: MouseEvent) => {
 			if (
 				asideRef.current &&
 				!asideRef.current.contains(event.target as Node)
 			) {
-				setIsOpen(false);
+				setIsMenuOpen(false);
 				asideRef.current.classList.remove(styles.container_open);
 			}
 		};
@@ -69,11 +69,11 @@ export const ArticleParamsForm = ({
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutside);
 		};
-	}, [isOpen]);
+	}, [isMenuOpen]);
 
 	return (
 		<>
-			<ArrowButton isOpen={isOpen} onClick={handleButtonOpen} />
+			<ArrowButton isOpen={isMenuOpen} onClick={handleButtonOpen} />
 			<aside className={styles.container} ref={asideRef}>
 				<form
 					className={styles.form}
